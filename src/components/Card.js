@@ -5,12 +5,12 @@ import { FaBed, FaBath, FaUserFriends } from 'react-icons/fa';
 const MotionImg = motion(Img)
 
 const Card = ({ title, post }) => {
-    const cardColor = useColorModeValue('gray.100', 'gray.700');
+    const cardColor = useColorModeValue('white', 'gray.700');
     const badgeColor = useColorModeValue('gray.300', 'gray.600');
 
 
     return (
-        <Box backgroundColor={cardColor} borderRadius={['sm', 'md']} overflow="hidden">
+        <Box bgColor={cardColor} rounded='md' shadow="lg" overflow="hidden">
             <Box
                 onClick=""
                 cursor="pointer"
