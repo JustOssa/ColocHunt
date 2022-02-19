@@ -17,7 +17,7 @@ const Footer = () => {
                     <Link
                         isExternal
                         rel="noreferrer"
-                        href={process.env.githubUrl}
+                        href={process.env.REACT_APP_githubUrl}
                         aria-label="Github Repo"
                     >
                     <Icon as={FaGithub} boxSize={4} />
@@ -25,7 +25,7 @@ const Footer = () => {
                     <Link
                         isExternal
                         rel="noreferrer"
-                        href={process.env.twitterUrl}
+                        href={process.env.REACT_APP_twitterUrl}
                         aria-label="Twitter Profile"
                     >
                     <Icon as={FaTwitter} boxSize={4} />
@@ -33,7 +33,7 @@ const Footer = () => {
                     <Link
                         isExternal
                         rel="noreferrer"
-                        href={process.env.linkedinUrl}
+                        href={process.env.REACT_APP_linkedinUrl}
                         aria-label="Linkedin Profile"
                     >
                     <Icon as={FaLinkedin} boxSize={4} />
@@ -41,7 +41,7 @@ const Footer = () => {
                     <Link
                         isExternal
                         rel="noreferrer"
-                        href={`mailto:${process.env.emailAddress}`}
+                        href={`mailto:${process.env.REACT_APP_emailAddress}`}
                         aria-label="Email Address"
                     >
                     <Icon as={FaEnvelope} boxSize={4} />
