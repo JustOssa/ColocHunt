@@ -7,7 +7,7 @@ const ProfileCard = ({title, img}) => {
           <Box
             w="full"
             mx="auto"
-            bg={useColorModeValue("white", "gray.800")}
+            bg={useColorModeValue("white", "#1c232f")}
             shadow="lg"
             rounded="lg"
             overflow="hidden"

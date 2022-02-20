@@ -7,6 +7,7 @@ import Profiles from "./pages/Profiles";
 import Home from "./pages/Home";
 import ListRoom from './pages/ListRoom';
 import FindRoom from './pages/FindRoom';
+import Profile from "./pages/Profile";
 
 function App() {
 
@@ -18,7 +19,8 @@ function App() {
         <Route path="rooms" element={<Rooms />} />
         <Route path="rooms/create" element={<ListRoom />} />
         <Route path="profiles" element={<Profiles />} />
-        <Route path="profile/create" element={<FindRoom />} />
+        <Route path="profiles/create" element={<FindRoom />} />
+        <Route path="profiles/:profileID" element={<Profile />} />
       </Routes>
       <Footer/>
     </Flex>
