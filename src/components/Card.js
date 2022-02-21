@@ -1,6 +1,7 @@
-import { Badge, Box, Flex, Img, Text, useColorModeValue } from '@chakra-ui/react';
+import { Badge, Box, Flex, Img, LinkBox, LinkOverlay, Text, useColorModeValue } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaBed, FaBath, FaUserFriends } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const MotionImg = motion(Img)
 
@@ -25,26 +26,30 @@ const Card = ({ title, post }) => {
                     src={post}
                 />
             </Box>
-            <Flex px="4" py="2" align="center" justify="space-between" w="100%">
-                <Text fontWeight="semibold" fontSize='sm'>
-                    {title}
-                </Text>
-                <Badge backgroundColor={badgeColor}>200$</Badge>
-            </Flex>
-            <Flex px="4" pb="2" align="center" justify="space-between" w="100%">
-                <Flex align="center" gap={2} title="Roomates">
-                    <FaUserFriends/>
-                    <Text>2/3</Text>
+            <LinkBox>
+                <Flex px="4" py="2" align="center" justify="space-between" w="100%">
+                    <LinkOverlay as={Link} to="a">
+                        <Text fontWeight="semibold" fontSize='sm'>
+                            {title}
+                        </Text>
+                    </LinkOverlay>
+                    <Badge backgroundColor={badgeColor}>200$</Badge>
                 </Flex>
-                <Flex align="center" gap={2} title="Bedrooms">
-                    <FaBed/>
-                    <Text>2</Text>
+                <Flex px="4" pb="2" align="center" justify="space-between" w="100%">
+                    <Flex align="center" gap={2} title="Roommates">
+                        <FaUserFriends/>
+                        <Text>2/3</Text>
+                    </Flex>
+                    <Flex align="center" gap={2} title="Bedrooms">
+                        <FaBed/>
+                        <Text>2</Text>
+                    </Flex>
+                    <Flex align="center" gap={2} title="Bathrooms">
+                        <FaBath/>
+                        <Text>1</Text>
+                    </Flex>
                 </Flex>
-                <Flex align="center" gap={2} title="Bathrooms">
-                    <FaBath/>
-                    <Text>1</Text>
-                </Flex>
-            </Flex>
+            </LinkBox>
         </Box>
     );
 }

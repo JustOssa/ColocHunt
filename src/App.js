@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import ListRoom from './pages/ListRoom';
 import FindRoom from './pages/FindRoom';
 import Profile from "./pages/Profile";
+import Room from "./pages/Room";
 
 function App() {
 
@@ -16,8 +17,11 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
+        
         <Route path="rooms" element={<Rooms />} />
         <Route path="rooms/create" element={<ListRoom />} />
+        <Route path="rooms/:roomID" element={<Room />} />
+
         <Route path="profiles" element={<Profiles />} />
         <Route path="profiles/create" element={<FindRoom />} />
         <Route path="profiles/:profileID" element={<Profile />} />
