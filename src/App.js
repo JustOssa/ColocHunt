@@ -9,6 +9,9 @@ import ListRoom from './pages/ListRoom';
 import FindRoom from './pages/FindRoom';
 import Profile from "./pages/Profile";
 import Room from "./pages/Room";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
+
 
 function App() {
 
@@ -25,6 +28,10 @@ function App() {
         <Route path="profiles" element={<Profiles />} />
         <Route path="profiles/create" element={<FindRoom />} />
         <Route path="profiles/:profileID" element={<Profile />} />
+
+        <Route path="signup" element={<Signup />} />
+        <Route path="signin" element={<Signin />} />
+
       </Routes>
       <Footer/>
     </Flex>
