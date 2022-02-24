@@ -1,12 +1,30 @@
-import { Container, SimpleGrid, Skeleton } from '@chakra-ui/react';
-import Header from '../components/Layout/Header';
-import ProfileCard from '../components/ProfileCard';
+import { Box, chakra, SimpleGrid, useColorModeValue } from '@chakra-ui/react';
+import ProfileCard from '../../../components/ProfileCard';
 
-const Profiles = () => {
-    return ( 
-        <Container maxW="container.xl" mt="24">
-            <Header/>
-            <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={5} mt={8}>
+const LastProfiles = () => {
+    return (
+        <> 
+            <Box textAlign={{ sm: "center" }} px={{ base: 4, lg: 16, xl: 24 }} >
+                <chakra.p
+                    fontSize={{ base: "3xl", sm: "4xl" }}
+                    lineHeight="8" fontWeight="extrabold" letterSpacing="tight"
+                >
+                    Latest profiles
+                </chakra.p>
+                <chakra.p
+                    mt={4} mx="auto" maxW="2xl" fontSize={{ sm: "lg", md: "xl" }}
+                    color={useColorModeValue("gray.500", "gray.400")}
+                >
+                    Discover people looking for a place to rent.
+                </chakra.p>
+            </Box>
+
+            <SimpleGrid
+                columns={{ base: 1, sm: 2, lg: 3, xl:4 }}
+                spacing={5}
+                px={{ base: 4, lg: 16, xl: 24 }} 
+                py={10}
+            >
                 <ProfileCard key={1}
                     name="Patterson"
                     img={"https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"}
@@ -35,10 +53,9 @@ const Profiles = () => {
                     looking="Hay Anas"
                     studies="ENSA Safi"
                 />
-                <Skeleton borderRadius={['sm', null, 'md']} key={3} />
             </SimpleGrid>
-        </Container>
+        </>
      );
 }
  
-export default Profiles;
+export default LastProfiles;

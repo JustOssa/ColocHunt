@@ -4,7 +4,7 @@ import Footer from "./components/Layout/Footer";
 import Navbar from "./components/Layout/Navbar";
 import Rooms from "./pages/Rooms";
 import Profiles from "./pages/Profiles";
-import Home from "./pages/Home";
+import Home from "./pages/Home/";
 import ListRoom from './pages/ListRoom';
 import FindRoom from './pages/FindRoom';
 import Profile from "./pages/Profile";
@@ -31,6 +31,8 @@ function App() {
 
         <Route path="signup" element={<Signup />} />
         <Route path="signin" element={<Signin />} />
+
+        <Route path='*' element={<Home />} />
 
       </Routes>
       <Footer/>

@@ -1,10 +1,12 @@
 import { chakra, Box, useColorModeValue, Image, Center } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import Features from "../components/Features";
-import Pic from '../Assets/images/Friends-bro.svg'
+import Pic from '../../Assets/images/Friends-bro.svg'
+import Features from "./components/Features";
+import LastProfiles from "./components/LastProfiles";
+import LastRooms from "./components/LastRooms";
 
 const Home = () => {
-  return (<>
+  return (<Box maxW="8xl" mx="auto">
     <Box pos="relative" overflow="hidden" mt={10}>
 
       <Box maxW="7xl" mx="auto">
@@ -124,7 +126,14 @@ const Home = () => {
       <Features/>
     </Box>
 
-    </>
+    <Box mt={10} >
+      <LastProfiles/>
+    </Box>
+    <Box mt={10} >
+      <LastRooms/>
+    </Box>
+
+    </Box>
   );
 }
 

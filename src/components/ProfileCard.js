@@ -3,15 +3,16 @@ import { MdLocationOn } from "react-icons/md";
 import { BsFillBriefcaseFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const ProfileCard = ({title, img}) => {
+const ProfileCard = ({img, name, description, studies, looking}) => {
     return (
           <LinkBox
             w="full"
             mx="auto"
-            bg={useColorModeValue("white", "#1c232f")}
+            bg={useColorModeValue("white", "#1f2633")}
             shadow="lg"
             rounded="lg"
             overflow="hidden"
+            pos="relative"
           >
             <Image
               w="full"
@@ -23,38 +24,38 @@ const ProfileCard = ({title, img}) => {
             />
     
             <Flex px={6} py={3} bg="gray.900" align="center" justify="space-between" w="100%">
-                <Flex align="center">
+                <Flex align="center" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
                     <Icon as={MdLocationOn} h={5} w={5} color="white" />
-                    <chakra.h1 mx={3} color="white" fontWeight="bold" fontSize={["lg", "inherit"]}>
-                        Looking in California
+                    <chakra.h1 mx={3} color="white" fontWeight="bold" fontSize={["lg", "inherit"]}
+                      overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
+                        Looking in {looking}
                     </chakra.h1>
                 </Flex>
                 <Badge backgroundColor='gray.600' color="white">200$</Badge>
             </Flex>
     
             <Box py={4} px={6}>
-              <LinkOverlay as={Link} to="a">
+              <LinkOverlay _before={{ zIndex:1 }} as={Link} to="/profiles/a">
                 <chakra.h1
-                  fontSize={["xl", "inherit"]}
-                  fontWeight="bold"
+                  fontSize={["xl", "inherit"]} fontWeight="bold"
                   color={useColorModeValue("gray.800", "white")}
                 >
-                  {title}
+                  {name}
                 </chakra.h1>
               </LinkOverlay>
     
-              <chakra.p py={2} color={useColorModeValue("gray.700", "gray.400")}>
-                Looking to rent a room, i keep to myself, im as quiet as it could be,
-                I don't smoke nor drink.
+              <chakra.p pt={2} mb={12} noOfLines={3} color={useColorModeValue("gray.700", "gray.400")} >
+                {description}
               </chakra.p>
     
               <Flex
-                alignItems="center"
-                mt={4}
+                alignItems="center" pos="absolute" bottom={4}
                 color={useColorModeValue("gray.700", "gray.200")}
               >
                 <Icon as={BsFillBriefcaseFill} h={6} w={6} mr={2} />
-                <chakra.h1 px={2} fontSize="sm">ENSA Safi</chakra.h1>
+                <chakra.h1 px={2} fontSize="sm">
+                  {studies}
+                </chakra.h1>
               </Flex>
             </Box>
           </LinkBox>

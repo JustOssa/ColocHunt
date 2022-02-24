@@ -32,7 +32,6 @@ const Profile = () => {
                         rounded="full"
                         borderStyle="solid"
                         borderWidth={2}
-                        borderColor={useColorModeValue("brand.500", "brand.400")}
                         alt="Testimonial avatar"
                         src={profileImg}
                     />

@@ -7,9 +7,9 @@ import {
     Center,
   } from "@chakra-ui/react";
 
-import Pic1 from '../Assets/images/Time-management-rafiki.svg'
-import Pic2 from '../Assets/images/People-talking-bro.svg'
-import Pic3 from '../Assets/images/Security-On-rafiki.svg'
+import Pic1 from '../../../Assets/images/Time-management-rafiki.svg'
+import Pic2 from '../../../Assets/images/People-talking-bro.svg'
+import Pic3 from '../../../Assets/images/Security-On-rafiki.svg'
 
 const Features = () => {
 
@@ -41,7 +41,7 @@ const Features = () => {
                 Features
             </chakra.p>
             <chakra.p
-                mt={4} maxW="2xl" fontSize={{ sm: "lg", md: "xl" }} mx={{ lg: "auto" }}
+                mt={4} mx="auto" maxW="2xl" fontSize={{ sm: "lg", md: "xl" }}
                 color={useColorModeValue("gray.500", "gray.400")}
             >
                 Take a look at the features and see how we make roommates finding better.

@@ -6,7 +6,8 @@ import {
     Container,
     IconButton,
     useColorMode,
-    useColorModeValue
+    useColorModeValue,
+    chakra
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
@@ -16,6 +17,7 @@ const Navbar = () => {
 
     const { toggleColorMode } = useColorMode();
     const themeIcon = useColorModeValue(<FaMoon />, <FaSun />);
+    const logoColor = useColorModeValue("brand.600", "brand.400");
 
     return (
         <Box position="fixed" w="100%" zIndex={1000}>
@@ -26,7 +28,8 @@ const Navbar = () => {
                 justifyContent="space-between"
                 alignItems="center">
                 <Button variant="ghost" fontSize="xl" as={Link} to="/">
-                    Coloc V1
+                    Coloc&nbsp;
+                    <chakra.span color={logoColor}>V1</chakra.span>
                 </Button>
                 <Box>
                     <IconButton variant="ghost" aria-label="Profile" icon={<FaUser />} as={Link} to="/signin"/>
