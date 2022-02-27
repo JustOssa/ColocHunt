@@ -12,8 +12,6 @@ const Card = ({ title, post }) => {
         <Box bgColor={cardColor} rounded='md' shadow="lg" overflow="hidden">
             <LinkBox>
                 <Box
-                    onClick=""
-                    cursor="pointer"
                     h="150px"
                     position="relative"
                     overflow="hidden">
