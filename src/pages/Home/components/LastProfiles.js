@@ -24,6 +24,7 @@ const LastProfiles = () => {
                 spacing={5}
                 px={{ base: 4, lg: 16, xl: 24 }} 
                 py={10}
+                filter="blur(5px)"
             >
                 <ProfileCard key={1}
                     name="Patterson"
