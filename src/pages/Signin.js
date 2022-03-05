@@ -10,12 +10,48 @@ import {
     SimpleGrid,
     VisuallyHidden,
     Input,
+    Alert,
+    AlertIcon,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 import { GrGoogle } from 'react-icons/gr';
-import { Link as RouterLink } from "react-router-dom";
+import { useNavigate, useLocation, Link as RouterLink } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
+import AuthExceptionHandler from "../utils/AuthExceptionHandler";
 
 const Signin = () => {
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const { logIn, googleSignIn } = useUserAuth();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await logIn(loginEmail, loginPassword);
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(AuthExceptionHandler.handleLoginException(err));
+    }
+  };
+
+  const handleGoogleSignIn = async (e) => {
+    setError("");
+    try {
+      await googleSignIn();
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(AuthExceptionHandler.handleLoginException(err));
+    }
+  };
 
   return (
       <Container maxW="container.xl" mt="24">
@@ -52,7 +88,7 @@ const Signin = () => {
           </GridItem>
 
           <GridItem colSpan={{ base: "auto", lg: 4 }}>
-            <Box as="form" mb={6} rounded="lg" shadow="xl">
+            <Box as="form" mb={6} rounded="lg" shadow="xl" onSubmit={handleLogin}>
               <Center color="gray.600">
                 <p>Start talking now</p>
               </Center>
@@ -60,13 +96,36 @@ const Signin = () => {
                 columns={1} px={6} py={4} spacing={4} borderBottom="solid 1px"
                 borderColor={useColorModeValue("gray.200","gray.700")}
               >
+                {!error && from !== "/" &&
+                  <Alert status='info'>
+                    <AlertIcon />
+                    Login to continue
+                  </Alert>
+                }
+                {error && 
+                  <Alert status='error'>
+                    <AlertIcon />
+                    {error}
+                  </Alert>
+                }
                 <Flex>
                   <VisuallyHidden>Email Address</VisuallyHidden>
-                  <Input mt={0} type="email" placeholder="Email Address" required />
+                  <Input mt={0} required
+                    placeholder="Email Address"
+                    type="email"
+                    onChange={(event) => {
+                      setLoginEmail(event.target.value);
+                    }}
+                  />
                 </Flex>
                 <Flex>
                   <VisuallyHidden>Password</VisuallyHidden>
-                  <Input mt={0} type="password" placeholder="Password" required />
+                  <Input mt={0} required
+                    placeholder="Password"
+                    type="password"
+                    onChange={(event) => {
+                      setLoginPassword(event.target.value);
+                    }}/>
                 </Flex>
                 <Button colorScheme="brand" py={2} type="submit">
                   Sign in
@@ -78,7 +137,7 @@ const Signin = () => {
                 </Flex>
               </SimpleGrid>
               <Box px={6} py={4}>
-                <Button py={2} w="full" colorScheme="red" leftIcon={<GrGoogle/>}>
+                <Button py={2} w="full" colorScheme="red" leftIcon={<GrGoogle/>} onClick={handleGoogleSignIn}>
                   Continue with Google
                 </Button>
               </Box>

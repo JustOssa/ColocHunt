@@ -13,11 +13,13 @@ import {
     MenuList,
     MenuItem,
     Flex,
+    MenuDivider,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { MdEmail } from 'react-icons/md';
+import { Link, useNavigate } from 'react-router-dom';
+import { MdEmail, MdLogout } from 'react-icons/md';
 import { IoMdSettings } from 'react-icons/io';
 import MobileLinks from './MobileLinks';
+import { useUserAuth } from '../../context/UserAuthContext';
 
 
 
@@ -26,6 +28,17 @@ const Navbar = () => {
     const { toggleColorMode } = useColorMode();
     const themeIcon = useColorModeValue(<FaMoon />, <FaSun />);
     const logoColor = useColorModeValue("brand.600", "brand.400");
+
+    const { logOut, user } = useUserAuth();
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+      try {
+        await logOut();
+        navigate("/signin");
+      } catch{
+        console.log("Error.");
+      }
+    };
 
     return (
         <Box position="fixed" w="100%" zIndex={100} bgColor={useColorModeValue("white", "gray.800")}>
@@ -44,19 +57,23 @@ const Navbar = () => {
                     </Button>
                 </Flex>
                 <Box>
-                    <Menu>
-                        <MenuButton
-                            as={IconButton}
-                            variant="ghost"
-                            aria-label="Profile"
-                            icon={<FaUser />}
-                        />
-                        <MenuList minW="full">
-                            <MenuItem icon={<FaUserCircle size={16} />}>My Account</MenuItem>
-                            <MenuItem icon={<MdEmail size={16} />}>Inbox </MenuItem>
-                            <MenuItem icon={<IoMdSettings size={16} />}>Settings </MenuItem>
-                        </MenuList>
-                    </Menu>
+                    { user &&
+                        <Menu>
+                            <MenuButton
+                                as={IconButton}
+                                variant="ghost"
+                                aria-label="Profile"
+                                icon={<FaUser />}
+                            />
+                            <MenuList minW="full">
+                                <MenuItem icon={<FaUserCircle size={16} />}>My Account</MenuItem>
+                                <MenuItem icon={<MdEmail size={16} />}>Inbox </MenuItem>
+                                <MenuItem icon={<IoMdSettings size={16} />}>Settings </MenuItem>
+                                <MenuDivider />
+                                <MenuItem icon={<MdLogout size={16} />} onClick={handleLogout} >Sign out </MenuItem>
+                            </MenuList>
+                        </Menu>
+                    }
                     <IconButton
                         ml={1}
                         onClick={toggleColorMode}

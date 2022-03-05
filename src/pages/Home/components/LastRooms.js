@@ -28,8 +28,8 @@ const LastRooms = () => {
             >
                 <Card key={1} title="Miftah ElKheir, Safi" post={"https://i.imgur.com/5BtLV52.jpeg"} />
                 <Card key={2} title="Hay Salam, Safi" post={"https://i.imgur.com/LuycVeB.jpeg"} />
-                <Card key={2} title="Jrifat, Safi" post={"https://i.imgur.com/9lXhrTh.jpeg"} />
-                <Card key={2} title="Hay Anas, Safi" post={"https://i.imgur.com/vHiYiXj.jpeg"} />
+                <Card key={3} title="Jrifat, Safi" post={"https://i.imgur.com/9lXhrTh.jpeg"} />
+                <Card key={4} title="Hay Anas, Safi" post={"https://i.imgur.com/vHiYiXj.jpeg"} />
             </SimpleGrid>
         </>
      );

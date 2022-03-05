@@ -12,31 +12,47 @@ import Room from "./pages/Room";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 
+import { UserAuthContextProvider } from "./context/UserAuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 
   return (
-    <Flex minHeight="100vh" direction="column">
-      <Navbar/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        
-        <Route path="rooms" element={<Rooms />} />
-        <Route path="rooms/create" element={<ListRoom />} />
-        <Route path="rooms/:roomID" element={<Room />} />
+    <UserAuthContextProvider>
 
-        <Route path="profiles" element={<Profiles />} />
-        <Route path="profiles/create" element={<FindRoom />} />
-        <Route path="profiles/:profileID" element={<Profile />} />
+      <Flex minHeight="100vh" direction="column">
+        <Navbar/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          
+          <Route path="rooms" element={<ProtectedRoute><Rooms /></ProtectedRoute>} />
+          <Route path="rooms/create" element={<ProtectedRoute><ListRoom /></ProtectedRoute>} />
+          <Route path="rooms/:roomID" element={<ProtectedRoute><Room /></ProtectedRoute>} />
 
-        <Route path="signup" element={<Signup />} />
-        <Route path="signin" element={<Signin />} />
+          <Route path="profiles" element={<ProtectedRoute><Profiles /></ProtectedRoute>} />
+          <Route path="profiles/create" element={<ProtectedRoute><FindRoom /></ProtectedRoute>} />
+          <Route path="profiles/:profileID" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
-        <Route path='*' element={<Home />} />
+          <Route path="signup" element={
+            <ProtectedRoute>
+              <Signup />
+            </ProtectedRoute>
+          } />
+          <Route path="signin" element={
+            <ProtectedRoute>
+              <Signin />
+            </ProtectedRoute>
+          } />
 
-      </Routes>
-      <Footer/>
-    </Flex>
+          <Route path='*' element={<Home />} />
+
+
+
+        </Routes>
+        <Footer/>
+      </Flex>
+
+    </UserAuthContextProvider>
   );
 }
 

@@ -10,12 +10,35 @@ import {
     SimpleGrid,
     VisuallyHidden,
     Input,
+    Alert,
+    AlertIcon,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 import { GrGoogle } from 'react-icons/gr';
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
+import AuthExceptionHandler from "../utils/AuthExceptionHandler";
 
 const Signup = () => {
+
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [error, setError] = useState("");
+  
+  const { signUp } = useUserAuth();
+  let navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await signUp(registerEmail, registerPassword);
+      navigate("/page");
+    } catch (err) {
+      setError(AuthExceptionHandler.handleRegisterException(err));
+    }
+  };
 
   return (
       <Container maxW="container.xl" mt="24">
@@ -51,7 +74,7 @@ const Signup = () => {
           </GridItem>
 
           <GridItem colSpan={{ base: "auto", md: 4 }}>
-            <Box as="form" mb={6} rounded="lg" shadow="xl">
+            <Box as="form" mb={6} rounded="lg" shadow="xl" onSubmit={handleRegister}>
               <Center color="gray.600">
                 <p>Start talking now</p>
               </Center>
@@ -59,17 +82,33 @@ const Signup = () => {
                 columns={1} px={6} py={4} spacing={4} borderBottom="solid 1px"
                 borderColor={useColorModeValue("gray.200","gray.700")}
               >
+                {error && 
+                  <Alert status='error'>
+                    <AlertIcon />
+                    {error}
+                  </Alert>
+                }
                 <Flex>
                   <VisuallyHidden>First Name</VisuallyHidden>
                   <Input mt={0} type="text" placeholder="First Name" required />
                 </Flex>
                 <Flex>
                   <VisuallyHidden>Email Address</VisuallyHidden>
-                  <Input mt={0} type="email" placeholder="Email Address" required />
+                  <Input mt={0} required
+                    placeholder="Email Address"
+                    type="email"
+                    onChange={(event) => {
+                      setRegisterEmail(event.target.value);
+                    }}/>
                 </Flex>
                 <Flex>
                   <VisuallyHidden>Password</VisuallyHidden>
-                  <Input mt={0} type="password" placeholder="Password" required />
+                  <Input mt={0} required
+                    placeholder="Password"
+                    type="password"
+                    onChange={(event) => {
+                      setRegisterPassword(event.target.value);
+                    }}/>
                 </Flex>
                 <Button colorScheme="brand" py={2} type="submit">
                   Sign up for free
