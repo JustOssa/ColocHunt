@@ -7,13 +7,15 @@ import {
 } from '@chakra-ui/react';
 
 
-const Header = () => {
+const Header = ( {title, description}) => {
     const logoColor = useColorModeValue("brand.600", "brand.400");
     return (
         <Box textAlign="center">
-            <Heading as="h1" size="3xl">Coloc <chakra.span color={logoColor}>V1</chakra.span></Heading>
+            <Heading as="h1" size="3xl">
+                {title || <span>Coloc <chakra.span color={logoColor}>V1</chakra.span></span>}
+            </Heading>
             <Text fontSize="lg" fontWeight="semibold" mt={2}>
-                Find well-matched roommates for free
+                {description || "Find well-matched roommates for free"}
             </Text>
         </Box>
     );
