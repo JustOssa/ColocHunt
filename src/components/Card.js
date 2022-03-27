@@ -1,12 +1,13 @@
-import { Badge, Box, Flex, Img, LinkBox, LinkOverlay, Text, useColorModeValue } from '@chakra-ui/react';
+import { Badge, Box, Flex, Image, LinkBox, LinkOverlay, Text, useColorModeValue } from '@chakra-ui/react';
 import { FaBed, FaBath, FaUserFriends } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-
+import RandomImages from '../utils/randomImage';
 
 const Card = ({ title, post }) => {
     const cardColor = useColorModeValue('white', '#1f2633');
     const badgeColor = useColorModeValue('gray.300', 'gray.600');
 
+    const fallbackImg = RandomImages[Math.floor(Math.random() * RandomImages.length)];
 
     return (
         <Box bgColor={cardColor} rounded='md' shadow="lg" overflow="hidden">
@@ -15,10 +16,11 @@ const Card = ({ title, post }) => {
                     h="150px"
                     position="relative"
                     overflow="hidden">
-                    <Img
+                    <Image
                         w="100%" h="100%"
                         objectFit="cover"
                         src={post}
+                        fallbackSrc={fallbackImg}
                     />
                 </Box>
             
