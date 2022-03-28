@@ -14,13 +14,16 @@ import {
     MenuItem,
     Flex,
     MenuDivider,
+    HStack,
 } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { MdEmail, MdLogout } from 'react-icons/md';
 import { IoMdSettings } from 'react-icons/io';
 import MobileLinks from './MobileLinks';
 import { useUserAuth } from '../../context/UserAuthContext';
 
+import { BsPeopleFill } from 'react-icons/bs';
+import { MdApartment, MdHelpCenter } from 'react-icons/md';
 
 
 const Navbar = () => {
@@ -40,6 +43,25 @@ const Navbar = () => {
       }
     };
 
+    const NavButton = ({children, ...rest}) => {
+        return (  
+            <Button
+                w="full"
+                variant="ghost"
+                color={useColorModeValue("gray.500", "gray.400")}
+                _activeLink={{
+                    //bg: useColorModeValue("brand.500", "brand.200"),
+                    //color: useColorModeValue("white", "gray.800")
+                    color: useColorModeValue("gray.800", "white")
+                }}
+                as={NavLink}
+                {...rest}
+            >
+                {children}
+            </Button>
+        );
+    }
+
     return (
         <Box position="fixed" w="100%" zIndex={100} bgColor={useColorModeValue("white", "gray.800")}>
             <Container
@@ -55,6 +77,11 @@ const Navbar = () => {
                         Coloc&nbsp;
                         <chakra.span color={logoColor}>V1</chakra.span>
                     </Button>
+                    <HStack ml={2} display={{ base: "none", md: "flex" }}>
+                        <NavButton to="/profiles" leftIcon={<BsPeopleFill />}>Profiles</NavButton>
+                        <NavButton to="/rooms" leftIcon={<MdApartment />}>Rooms</NavButton>
+                        <NavButton to="/help" leftIcon={<MdHelpCenter />}>Help</NavButton>
+                    </HStack>
                 </Flex>
                 <Box>
                     { user &&
