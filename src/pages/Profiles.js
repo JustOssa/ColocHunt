@@ -5,8 +5,31 @@ import ProfileCard from '../components/ProfileCard';
 import { BsSearch } from 'react-icons/bs';
 import { FiFilter } from 'react-icons/fi';
 
+import { useState, useEffect } from 'react';
+import { getProfiles } from '../firestore/utils';
+
 const Profiles = () => {
     
+    const [loading, setLoading] = useState();
+    const [profiles, setProfiles] = useState();
+
+    const handleGetProfiles = async () => {
+        setLoading(true);
+        try {
+          const querySnapshot = await getProfiles();
+          setProfiles(
+            querySnapshot.docs.map( (doc) => ({ ...doc.data(), id: doc.id }))
+          );
+        } catch (error) {
+          console.log(error.message);
+        }
+        setLoading(false);
+      };
+
+    useEffect(() => {
+        handleGetProfiles();
+    }, []);
+
     return ( 
         <Container maxW="container.xl" mt="24">
             <Header description="Discover people looking for a place to rent"/>
@@ -52,7 +75,26 @@ const Profiles = () => {
                     looking="Hay Anas"
                     studies="ENSA Safi"
                 />
-                <Skeleton borderRadius={['sm', null, 'md']} />
+
+                {/*
+                    loading ?
+                    [...Array(4)].map( (elm, i) => {
+                        return <Skeleton key={i} rounded='md' h="424px"/>
+                    })
+                    :
+                    profiles && profiles.map((doc) => {
+                        return (
+                            <ProfileCard
+                                key={doc.id}
+                                name={doc.name}
+                                img={doc.img}
+                                description={doc.about}
+                                looking={doc.ProfileListing?.lookingIn}
+                                studies={doc.studies}
+                            />
+                        );
+                    })
+                */}
             </SimpleGrid>
         </Container>
      );
