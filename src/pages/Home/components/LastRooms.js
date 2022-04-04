@@ -24,7 +24,7 @@ const LastRooms = () => {
                 spacing={5}
                 px={{ base: 4, lg: 16, xl: 24 }} 
                 py={10}
-                filter="blur(5px)"
+                {/*filter="blur(5px)"*/}
             >
                 <Card key={1} title="Miftah ElKheir, Safi" post={"https://i.imgur.com/5BtLV52.jpeg"} />
                 <Card key={2} title="Hay Salam, Safi" post={"https://i.imgur.com/LuycVeB.jpeg"} />
