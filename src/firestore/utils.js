@@ -45,6 +45,12 @@ import { db } from "../utils/firebase-config";
     export function getRooms() {
         return getDocs(collection(db, "rooms"));
     }
+    
+    export function getRoomsByLocation(location) {
+        const roomsRef = collection(db, "rooms");
+        const q = query(roomsRef, where("location", "==", location));
+        return getDocs(q);
+    }
 
     export function getUserRoom(userID) {
         const roomsRef = collection(db, "rooms");
