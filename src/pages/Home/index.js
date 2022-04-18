@@ -10,9 +10,12 @@ const Home = () => {
 
     <Box maxW="8xl" mx="auto">
       
-      <Box pos="relative" overflow="hidden" mt={12}>
+      <Box pos="relative" overflow="hidden" mt={12}
+          height={{base: "auto", xl: "calc(100vh - var(--chakra-space-12))"}}>
 
-        <Box maxW="7xl" mx="auto">
+        <Box maxW="7xl" mx="auto"
+            display={{base: "block", lg:"flex"}}
+            height={{base: "auto", xl:"full"}}>
           <Box
             pb={{ base: 8, sm: 16, md: 20, lg: 28, xl: 32 }}
             maxW={{ lg: "2xl" }}
