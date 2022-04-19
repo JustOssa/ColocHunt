@@ -60,9 +60,9 @@ const MobileLinks = () => {
                 pos="absolute" top={0} left={0} right={0}
                 display={ mobileNav.isOpen ? "flex" : "none"}
                 flexDirection="column"
-                p={2} m={2} mt={12} spacing={3}
+                p={2} mt={12} spacing={3}
                 bg={useColorModeValue("white", "gray.800")}
-                rounded="sm"
+                rounded="md"
                 shadow="sm"
             >
                 <CloseButton

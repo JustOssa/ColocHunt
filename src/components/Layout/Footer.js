@@ -4,7 +4,7 @@ import { FaGithub, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
 const Footer = () => {
 
     return (
-        <Container as="footer" maxW="xl" py={10}>
+        <Container as="footer" maxW="xl" py={10} pos="absolute" bottom={0} left={0} right={0}>
             <VStack>
                 <Text>
                     Made with ❤️ by{' '}

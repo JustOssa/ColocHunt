@@ -54,12 +54,14 @@ const Signin = () => {
   };
 
   return (
-      <Container maxW="container.xl" mt="24">
+      <Container maxW="container.xl" mt="24" 
+        display= "flex" minH="calc(100vh - var(--chakra-space-24) - 136px)">
         
         <SimpleGrid
           alignItems="center"
           columns={{ base: 1, lg: 11 }}
           gap={{ base: 0, lg: 24 }}
+          w="full"
         >
           <GridItem
             colSpan={{ base: "auto", lg: 7 }}
