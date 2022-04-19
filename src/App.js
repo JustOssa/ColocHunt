@@ -20,7 +20,7 @@ function App() {
   return (
     <UserAuthContextProvider>
 
-      <Flex minHeight="100vh" direction="column">
+      <Flex minHeight="100vh" direction="column" pb="136px">
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home />} />
