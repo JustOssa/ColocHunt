@@ -1,4 +1,4 @@
-import { Center, Container, HStack, IconButton, Select, SimpleGrid, Skeleton } from '@chakra-ui/react';
+import { Center, Container, HStack, IconButton, Select, SimpleGrid, Skeleton, useBreakpointValue } from '@chakra-ui/react';
 import Card from '../components/Card';
 import Header from '../components/Layout/Header';
 
@@ -12,13 +12,20 @@ const Rooms = () => {
     const [loading, setLoading] = useState();
     const [rooms, setRooms] = useState();
 
-    const handleGetRooms = async () => {
+    const handleGetRooms = async (location) => {
         setLoading(true);
         try {
-          const querySnapshot = await getRooms();
-          setRooms(
-            querySnapshot.docs.map( (doc) => ({ ...doc.data(), id: doc.id }))
-          );
+          if (location) {
+              const querySnapshot = await getRoomsByLocation(location);
+              setRooms(
+                querySnapshot.docs.map( (doc) => ({ ...doc.data(), id: doc.id }))
+              );
+          } else {
+              const querySnapshot = await getRooms();
+              setRooms(
+                querySnapshot.docs.map( (doc) => ({ ...doc.data(), id: doc.id }))
+              );
+          }
         } catch (error) {
           console.log(error.message);
         }
@@ -29,24 +36,7 @@ const Rooms = () => {
         handleGetRooms();
     }, []);
 
-    const handleSearch = async (location) => {
-        if (!location) {
-            handleGetRooms();
-        } else {
-            setLoading(true);
-            try {
-                const querySnapshot = await getRoomsByLocation(location);
-                setRooms(
-                    querySnapshot.docs.map( (doc) => ({ ...doc.data(), id: doc.id }))
-                );
-            } catch (error) {
-                console.log(error.message);
-            }
-            setLoading(false);               
-        }
-    };
-
-
+    const skeltonCount = useBreakpointValue({ base: 1, sm: 4, md: 6, lg: 4 })
 
     return ( 
         <Container maxW="container.xl" mt="24">
@@ -55,7 +45,7 @@ const Rooms = () => {
             <HStack justify="space-between" spacing={4} mt={8}>
 
                 <Select maxW={{sm:72}} isDisabled={loading && true}
-                    placeholder='Select location' onChange={(e) => {handleSearch(e.target.value)}}>
+                    placeholder='Select location' onChange={(e) => {handleGetRooms(e.target.value)}}>
                     <option value='Hay Anas, Safi'>Hay Anas, Safi</option>
                     <option value='Miftah ElKheir, Safi'>Miftah ElKheir, Safi</option>
                     <option value='Hay Salam, Safi'>Hay Salam, Safi</option>
@@ -68,7 +58,7 @@ const Rooms = () => {
             <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={5} mt={6}>
                 {
                     loading ?
-                        [...Array(4)].map( (elm, i) => {
+                        [...Array(skeltonCount)].map( (elm, i) => {
                             return <Skeleton key={i} rounded='md' h="219px"/>
                         })
                     :
@@ -76,7 +66,17 @@ const Rooms = () => {
                             rooms?.length ?
                                 rooms.map((doc) => {
                                     return (
-                                        <Card key={doc.id} title={doc.location} post={doc.img} />
+                                        <Card
+                                            key={doc.id}
+                                            roomID = {doc.id}
+                                            title={doc.location}
+                                            image={doc.image}
+                                            rent={doc.rent}
+                                            bedrooms={doc.bedrooms}
+                                            bathrooms={doc.bathrooms}
+                                            currentRoomates={doc.currentRoomates}
+                                            totalRoomates={doc.totalRoomates}
+                                            />
                                     );
                                 })
                             :

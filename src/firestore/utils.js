@@ -41,7 +41,13 @@ import { db } from "../utils/firebase-config";
 
     // ==> Rooms <== //
 
-    // get rooms
+    // create room
+    export function createRoom(roomData) {
+        const roomRef = doc(collection(db, "rooms"));
+        return setDoc(roomRef, roomData);
+    }
+
+    // get all rooms
     export function getRooms() {
         return getDocs(collection(db, "rooms"));
     }
@@ -58,9 +64,16 @@ import { db } from "../utils/firebase-config";
         return getDocs(q);
     }
 
-    // profiles
+    // ==> profiles <== // 
+
     export function getProfiles() {
         const usersRef = collection(db, "users");
         const q = query(usersRef, orderBy(`ProfileListing`));
+        return getDocs(q);
+    }
+
+    export function getProfilesByLocation(location) {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, orderBy(`ProfileListing`), where("ProfileListing.location", "==", location));
         return getDocs(q);
     }

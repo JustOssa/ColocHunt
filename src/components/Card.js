@@ -3,7 +3,7 @@ import { FaBed, FaBath, FaUserFriends } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import RandomImages from '../utils/randomImage';
 
-const Card = ({ title, post }) => {
+const Card = ({ roomID, title, image, rent, bedrooms, bathrooms, currentRoomates, totalRoomates }) => {
     const cardColor = useColorModeValue('white', '#1f2633');
     const badgeColor = useColorModeValue('gray.300', 'gray.600');
 
@@ -19,31 +19,31 @@ const Card = ({ title, post }) => {
                     <Image
                         w="100%" h="100%"
                         objectFit="cover"
-                        src={post}
+                        src={image}
                         fallbackSrc={fallbackImg}
                     />
                 </Box>
             
                 <Flex px="4" py="2" align="center" justify="space-between" w="100%">
-                    <LinkOverlay as={Link} to="/rooms/a">
+                    <LinkOverlay as={Link} to={"/rooms/" + roomID}>
                         <Text fontWeight="semibold" fontSize='sm'>
                             {title}
                         </Text>
                     </LinkOverlay>
-                    <Badge backgroundColor={badgeColor}>200$</Badge>
+                    <Badge backgroundColor={badgeColor}>{rent || "-"}$</Badge>
                 </Flex>
                 <Flex px="4" pb="2" align="center" justify="space-between" w="100%">
                     <Flex align="center" gap={2} title="Roommates">
                         <FaUserFriends/>
-                        <Text>2/3</Text>
+                        <Text>{(currentRoomates|| "-") + "/" + (totalRoomates ||"-")}</Text>
                     </Flex>
                     <Flex align="center" gap={2} title="Bedrooms">
                         <FaBed/>
-                        <Text>2</Text>
+                        <Text>{bedrooms || "-"}</Text>
                     </Flex>
                     <Flex align="center" gap={2} title="Bathrooms">
                         <FaBath/>
-                        <Text>1</Text>
+                        <Text>{bathrooms || "-"}</Text>
                     </Flex>
                 </Flex>
             </LinkBox>
