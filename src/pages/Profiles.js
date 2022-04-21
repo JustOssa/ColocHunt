@@ -52,7 +52,7 @@ const Profiles = () => {
                     <option value='Jrifat, Safi'>Jrifat, Safi</option>
                 </Select>
 
-                <IconButton aria-label='Filter' icon={<FiFilter />} />
+                <IconButton aria-label='Filter' icon={<FiFilter />} isDisabled={loading && true}/>
             </HStack>
 
             <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={5} mt={6}>

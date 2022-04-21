@@ -1,5 +1,5 @@
 import { Badge, Box, Flex, Image, LinkBox, LinkOverlay, Text, useColorModeValue } from '@chakra-ui/react';
-import { FaBed, FaBath, FaUserFriends } from 'react-icons/fa';
+import { FaBed, FaBath, FaUserFriends, FaMapMarkerAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import RandomImages from '../utils/randomImage';
 
@@ -25,10 +25,13 @@ const Card = ({ roomID, title, image, rent, bedrooms, bathrooms, currentRoomates
                 </Box>
             
                 <Flex px="4" py="2" align="center" justify="space-between" w="100%">
-                    <LinkOverlay as={Link} to={"/rooms/" + roomID}>
-                        <Text fontWeight="semibold" fontSize='sm'>
-                            {title}
-                        </Text>
+                    <LinkOverlay as={Link} to={"/rooms/" + roomID} display="contents">
+                        <Flex align="center" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
+                            <FaMapMarkerAlt size={14} overflow="unset"/>
+                            <Text mx={2} fontWeight="semibold" fontSize='sm' isTruncated>
+                                {title}
+                            </Text>
+                        </Flex>
                     </LinkOverlay>
                     <Badge backgroundColor={badgeColor}>{rent || "-"}$</Badge>
                 </Flex>

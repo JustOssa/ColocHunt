@@ -36,7 +36,7 @@ const Rooms = () => {
         handleGetRooms();
     }, []);
 
-    const skeltonCount = useBreakpointValue({ base: 1, sm: 4, md: 6, lg: 4 })
+    const skeltonCount = useBreakpointValue({ base: 2, sm: 4, md: 6, lg: 4 })
 
     return ( 
         <Container maxW="container.xl" mt="24">
@@ -52,7 +52,7 @@ const Rooms = () => {
                     <option value='Jrifat, Safi'>Jrifat, Safi</option>
                 </Select>
 
-                <IconButton aria-label='Filter' icon={<FiFilter />}/>
+                <IconButton aria-label='Filter' icon={<FiFilter />} isDisabled={loading && true}/>
             </HStack>
 
             <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={5} mt={6}>

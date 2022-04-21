@@ -15,7 +15,8 @@ const Features = () => {
 
     const Feature = (props) => {
         return (
-          <Box textAlign="center">
+          <Box textAlign="center" shadow="lg" rounded="md" px={8} py={10}
+            bg={useColorModeValue("white", "#1f2633")}>
             <Center>
                 <Image boxSize={48} src={props.icon}/>
             </Center>
@@ -52,7 +53,7 @@ const Features = () => {
             px={{ base: 4, lg: 16, xl: 24 }} 
             py={10}
             columns={{ base: 1, md: 2, lg: 3 }}
-            spacing={16}
+            spacing={{ base: 5, xl: 10 }}
         >
             <Feature
                 title="Save Time"

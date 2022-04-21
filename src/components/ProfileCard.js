@@ -1,6 +1,6 @@
 import { Badge, Box, chakra, Flex, Icon, Image, LinkBox, LinkOverlay, useColorModeValue } from "@chakra-ui/react";
-import { MdLocationOn } from "react-icons/md";
 import { BsFillBriefcaseFill } from "react-icons/bs";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const ProfileCard = ({profileID, image, gender, name, description, studies, looking, budget}) => {
@@ -31,7 +31,7 @@ const ProfileCard = ({profileID, image, gender, name, description, studies, look
     
             <Flex px={6} py={3} bg="gray.900" align="center" justify="space-between" w="100%">
                 <Flex align="center" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
-                    <Icon as={MdLocationOn} h={5} w={5} color="white" />
+                    <FaMapMarkerAlt size={17} color="white" overflow="unset"/>
                     <chakra.h1 mx={3} color="white" fontWeight="bold" fontSize={["lg", "inherit"]}
                       overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
                         Looking in {looking}
