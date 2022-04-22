@@ -10,8 +10,8 @@ const Home = () => {
 
     <Box maxW="8xl" mx="auto">
       
-      <Box pos="relative" overflow="hidden" mt={12}
-          minH={{base: "auto", xl: "calc(100vh - var(--chakra-space-12))"}}>
+      <Box pos="relative" overflow="hidden"
+          minH={{base: "auto", xl: "calc(100vh - var(--chakra-space-16))"}}>
 
         <Box maxW="7xl" mx="auto"
             display={{base: "block", lg:"flex"}}

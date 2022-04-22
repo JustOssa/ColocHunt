@@ -39,7 +39,7 @@ const Profiles = () => {
     const skeltonCount = useBreakpointValue({ base: 1, sm: 4, md: 6, lg: 4 })
 
     return ( 
-        <Container maxW="container.xl" mt="24">
+        <Container maxW="container.xl" mt={8}>
             <Header description="Discover people looking for a place to rent"/>
 
             <HStack justify="space-between" spacing={4} mt={8}>

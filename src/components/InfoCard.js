@@ -1,6 +1,7 @@
 import { Badge, Box, Button, chakra, Flex, Icon, Image, useColorModeValue } from "@chakra-ui/react";
 import { MdEmail, MdLocationOn } from "react-icons/md";
 import { BsFillBriefcaseFill } from "react-icons/bs";
+import RandomImages from '../utils/randomImage';
 
 const InfoCard = ({title, img}) => {
     return (
@@ -19,6 +20,7 @@ const InfoCard = ({title, img}) => {
               fit="cover"
               objectPosition="center"
               src={img}
+              fallbackSrc={RandomImages[Math.floor(Math.random() * RandomImages.length)]}
               alt="avatar"
             />
     

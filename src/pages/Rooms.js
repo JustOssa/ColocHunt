@@ -39,7 +39,7 @@ const Rooms = () => {
     const skeltonCount = useBreakpointValue({ base: 2, sm: 4, md: 6, lg: 4 })
 
     return ( 
-        <Container maxW="container.xl" mt="24">
+        <Container maxW="container.xl" mt={8}>
             <Header description="Join people who already have a place"/>
 
             <HStack justify="space-between" spacing={4} mt={8}>

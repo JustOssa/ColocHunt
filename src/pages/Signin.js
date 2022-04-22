@@ -54,7 +54,7 @@ const Signin = () => {
   };
 
   return (
-      <Container maxW="container.xl" mt="24" 
+      <Container maxW="container.xl" mt={8} 
         display= "flex" minH="calc(100vh - var(--chakra-space-24) - 136px)">
         
         <SimpleGrid

@@ -2,11 +2,12 @@ import React from "react";
 import {
   Navigate,
   useLocation,
-  matchPath
+  matchPath,
+  Outlet
 } from 'react-router-dom'
 import { useUserAuth } from "../context/UserAuthContext";
 
-const ProtectedRoute = ({children}) => {
+const ProtectedRoute = () => {
   
   const { user } = useUserAuth();
   let location = useLocation();
@@ -29,13 +30,13 @@ const ProtectedRoute = ({children}) => {
         replace
       />
     ) : (
-      children
+      <Outlet/>
     )
   }
 
   // If they are not logged in they can't visit pretected page
   return user ? (
-    children
+    <Outlet/>
   ) : (
     <Navigate
       to="/signin"

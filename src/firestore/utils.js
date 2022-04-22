@@ -64,6 +64,12 @@ import { db } from "../utils/firebase-config";
         return getDocs(q);
     }
 
+    // get room
+    export function getRoom(roomID) {
+        const roomDoc = doc(db, "rooms", roomID);
+        return getDoc(roomDoc);
+    }
+
     // ==> profiles <== // 
 
     export function getProfiles() {
