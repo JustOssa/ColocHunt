@@ -90,7 +90,7 @@ const Profile = () => {
 
                         <Heading as='h4' fontSize='md' fontWeight="medium" py={2}>Interests</Heading>
                         <HStack spacing={2}>
-                            { profileData?.interests.map((interest) => (
+                            { profileData?.interests?.map((interest) => (
                                 <Tag key={interest} variant='subtle' colorScheme='cyan'>
                                     <TagLeftIcon boxSize='12px' as={FaSmile} />
                                     <TagLabel>{interest}</TagLabel>
