@@ -30,7 +30,7 @@ const Card = ({ roomID, title, image, rent, bedrooms, bathrooms, currentRoomates
                         <Flex align="center" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
                             <FaMapMarkerAlt size={14} overflow="unset"/>
                             <Text mx={2} fontWeight="semibold" fontSize='sm' isTruncated>
-                                {title}
+                                {title || "-"}
                             </Text>
                         </Flex>
                     </LinkOverlay>

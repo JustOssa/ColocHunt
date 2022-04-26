@@ -1,11 +1,30 @@
-import { chakra, Box, useColorModeValue, Image, Center } from "@chakra-ui/react";
+import { chakra, Box, useColorModeValue, Image, Center, Button } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import Pic from '../../Assets/images/Friends-bro.svg'
 import Features from "./components/Features";
 import LastProfiles from "./components/LastProfiles";
 import LastRooms from "./components/LastRooms";
 
+import { useUserAuth } from "../../context/UserAuthContext";
+
 const Home = () => {
+
+  const { user } = useUserAuth();
+
+  const StyledBtn = ({children, ...props}) => {
+    return (  
+      <Button
+        {...props}
+        w="full" height="auto"
+        lineHeight="1.6" fontWeight="extrabold"
+        fontSize={{ base: "md", md: "lg" }}
+        px={{ base: 8, md: 10 }} py={{ base: 3, md: 4 }}
+      >
+        {children}
+      </Button>
+    );
+  }
+
   return (
 
     <Box maxW="8xl" mx="auto">
@@ -63,52 +82,37 @@ const Home = () => {
                   <Image display={{ lg: "none"}} src={Pic} alt='Friends' />
                 </Center>
 
-                <Box
-                  mt={{ base: 5, sm: 8 }}
-                  display={{ sm: "flex" }}
-                  justifyContent={{ sm: "center", lg: "start" }}
-                  fontWeight="extrabold"
-                >
-                  <Box>
-                    <chakra.a as={RouterLink} to="/signup"
-                      w="full"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      border="solid 1px transparent"
-                      fontSize={{ base: "md", md: "lg" }}
-                      rounded="md"
-                      color="white"
-                      bg="brand.600"
-                      _hover={{ bg: "brand.700" }}
-                      px={{ base: 8, md: 10 }}
-                      py={{ base: 3, md: 4 }}
-                      cursor="pointer"
-                    >
-                      Get started
-                    </chakra.a>
-                  </Box>
-                  <Box mt={[3, 0]} ml={[null, 3]}>
-                    <chakra.a as={RouterLink} to="/signin"
-                      w="full"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      border="solid 1px transparent"
-                      fontSize={{ base: "md", md: "lg" }}
-                      rounded="md"
-                      color="brand.700"
-                      bg="brand.100"
-                      _hover={{ bg: "brand.200" }}
-                      px={{ base: 8, md: 10 }}
-                      py={{ base: 3, md: 4 }}
-                      cursor="pointer"
-                    >
-                      Sign in
-                    </chakra.a>
-                  </Box>
+                { (user !== undefined) && 
+                  <Box
+                    mt={{ base: 5, sm: 8 }}
+                    display={{ sm: "flex" }}
+                    justifyContent={{ sm: "center", lg: "start" }}
+                  >
+                    <Box>
+                      <StyledBtn
+                        as={RouterLink} to={!user ? "signup" : "rooms"}
+                        color="white"
+                        bg="brand.600"
+                        _hover={{ bg: "brand.700" }}
+                        _active={{ bg: "brand.700" }}
+                      >
+                        { !user ? "Get started" : "Browse Rooms" }
+                      </StyledBtn>
+                    </Box>
+                    <Box mt={[3, 0]} ml={[null, 3]}>
+                      <StyledBtn
+                        as={RouterLink} to={!user ? "signin" : "profiles"}
+                        color="brand.700"
+                        bg="brand.100"
+                        _hover={{ bg: "brand.200" }}
+                        _active={{ bg: "brand.200" }}
+                      >
+                        {!user ? "Sign in" : "View profiles"}
+                      </StyledBtn>
+                    </Box>
 
-                </Box>
+                  </Box>
+                }
               </Box>
 
           </Box>
@@ -132,11 +136,11 @@ const Home = () => {
         <Features/>
       </Box>
 
-      <Box mt={10} >
-        <LastProfiles/>
+      <Box mt={10}>
+        <LastProfiles locked={!user && true}/>
       </Box>
-      <Box mt={10} >
-        <LastRooms/>
+      <Box mt={10}>
+        <LastRooms locked={!user && true}/>
       </Box>
 
     </Box>
