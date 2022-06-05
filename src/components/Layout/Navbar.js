@@ -74,8 +74,8 @@ const Navbar = () => {
                 <Flex spacing={0}>
                     <MobileLinks/>                    
                     <Button variant="ghost" fontSize="xl" as={Link} to="/">
-                        Coloc&nbsp;
-                        <chakra.span color={logoColor}>V1</chakra.span>
+                        Coloc
+                        <chakra.span color={logoColor}>Hunt</chakra.span>
                     </Button>
                     <HStack ml={2} display={{ base: "none", md: "flex" }}>
                         <NavButton to="/profiles" leftIcon={<BsPeopleFill />}>Profiles</NavButton>

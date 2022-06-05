@@ -1,13 +1,14 @@
 import { Badge, Box, Flex, Image, LinkBox, LinkOverlay, Text, useColorModeValue } from '@chakra-ui/react';
 import { FaBed, FaBath, FaUserFriends, FaMapMarkerAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import RandomImages from '../utils/randomImage';
+// import RandomImages from '../utils/randomImage';
+import fallbackImg from "../Assets/images/fallback/fallback1.jpg"
 
 const Card = ({ roomID, title, image, rent, bedrooms, bathrooms, currentRoomates, totalRoomates }) => {
     const cardColor = useColorModeValue('white', '#1f2633');
     const badgeColor = useColorModeValue('gray.300', 'gray.600');
 
-    const fallbackImg = RandomImages[Math.floor(Math.random() * RandomImages.length)];
+    //const fallbackImg = RandomImages[Math.floor(Math.random() * RandomImages.length)];
 
     return (
         <Box bgColor={cardColor} rounded='md' shadow="lg" overflow="hidden">
@@ -29,7 +30,7 @@ const Card = ({ roomID, title, image, rent, bedrooms, bathrooms, currentRoomates
                         <Flex align="center" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
                             <FaMapMarkerAlt size={14} overflow="unset"/>
                             <Text mx={2} fontWeight="semibold" fontSize='sm' isTruncated>
-                                {title}
+                                {title || "-"}
                             </Text>
                         </Flex>
                     </LinkOverlay>

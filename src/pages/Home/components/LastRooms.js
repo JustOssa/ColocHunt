@@ -1,10 +1,12 @@
-import { Box, chakra, SimpleGrid, useColorModeValue } from '@chakra-ui/react';
+import { Box, chakra, Flex, SimpleGrid, useColorModeValue } from '@chakra-ui/react';
 import Card from '../../../components/Card';
+import { AiFillLock } from "react-icons/ai"
+import { Link } from 'react-router-dom';
 
-const LastRooms = () => {
+const LastRooms = ( {locked} ) => {
     return (
         <> 
-            <Box textAlign={{ sm: "center" }} px={{ base: 4, lg: 16, xl: 24 }} >
+            <Box textAlign={{ sm: "center" }} px={{ base: 4, lg: 16, xl: 24 }}>
                 <chakra.p
                     fontSize={{ base: "3xl", sm: "4xl" }}
                     lineHeight="8" fontWeight="extrabold" letterSpacing="tight"
@@ -21,55 +23,51 @@ const LastRooms = () => {
 
             <SimpleGrid
                 columns={{ base: 1, sm: 2, lg: 3, xl:4 }}
+                px={{ base: 4, lg: 16, xl: 24 }}
                 spacing={5}
-                px={{ base: 4, lg: 16, xl: 24 }} 
                 py={10}
-                /*filter="blur(5px)"*/
+                position="relative"
             >
-                <Card
-                    key={1}
-                    roomID={1}
-                    title="Miftah ElKheir, Safi"
-                    image={"https://i.imgur.com/5BtLV52.jpeg"}
-                    rent="200"
-                    bedrooms="3"
-                    bathrooms="1"
-                    currentRoomates="2"
-                    totalRoomates="3"
-                    />
-                <Card
-                    key={2}
-                    roomID={2}
-                    title="Hay Salam, Safi"
-                    image={"https://i.imgur.com/LuycVeB.jpeg"}
-                    rent="150"
-                    bedrooms="3"
-                    bathrooms="1"
-                    currentRoomates="2"
-                    totalRoomates="3"
-                    />
-                <Card
-                    key={3}
-                    roomID={3}
-                    title="Jrifat, Safi"
-                    image={"https://i.imgur.com/9lXhrTh.jpeg"}
-                    rent="300"
-                    bedrooms="3"
-                    bathrooms="1"
-                    currentRoomates="2"
-                    totalRoomates="3"
-                    />
-                <Card
-                    key={4}
-                    roomID={4}
-                    title="Hay Anas, Safi"
-                    image={"https://i.imgur.com/vHiYiXj.jpeg"}
-                    rent="230"
-                    bedrooms="3"
-                    bathrooms="1"
-                    currentRoomates="2"
-                    totalRoomates="3"
-                    />
+                { locked &&
+                    <Flex
+                        position="absolute"
+                        top={0} left={0} right={0} bottom={0}
+                        backdropFilter="blur(5px)"
+                        zIndex={2}
+                        fontSize={{ sm: "lg", md: "xl" }} fontWeight="extrabold"
+                        justifyContent="center" alignItems="center" direction="column"
+                        as={Link} to="signin"
+                    >
+                        <AiFillLock size={60}/>
+                        Sign in to see rooms
+                    </Flex>
+                }
+
+                {
+                    [
+                        ["Miftah ElKheir, Safi", "https://i.imgur.com/5BtLV52.jpeg"],
+                        ["Hay Salam, Safi", "https://i.imgur.com/LuycVeB.jpeg"],
+                        ["Jrifat, Safi", "https://i.imgur.com/9lXhrTh.jpeg"],
+                        ["Hay Anas, Safi", "https://i.imgur.com/vHiYiXj.jpeg"]
+                    ]
+                        .map((item) => (
+                            <Box
+                                key={item[0]}
+                                _first={{ display: ['none', 'initial'] }}
+                                _last={{ display: ['none', 'initial', null, 'none', 'initial', ] }} >
+                                <Card
+                                    roomID=""
+                                    title={item[0]}
+                                    image={item[1]}
+                                    rent="200"
+                                    bedrooms="3"
+                                    bathrooms="1"
+                                    currentRoomates="2"
+                                    totalRoomates="3"
+                                />
+                            </Box>
+                        ))
+                }
 
             </SimpleGrid>
         </>
