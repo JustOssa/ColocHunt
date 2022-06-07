@@ -73,7 +73,7 @@ const Home = () => {
                   mx={{ sm: "auto", lg: 0 }}
                   color="gray.500"
                 >
-                    Coloc is a free service where you can search for
+                    ColocHunt is a free service where you can search for
                     rooms and roommates. You can communicate with other users
                     directly without having to share your personal details.
                 </chakra.p>
