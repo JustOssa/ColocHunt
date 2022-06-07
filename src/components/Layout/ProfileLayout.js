@@ -11,6 +11,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import { IoMdSettings } from 'react-icons/io';
 import { MdEmail } from 'react-icons/md';
 
+import blank from "../../Assets/images/blank.png"
 
 const Me = () => {
 
@@ -56,7 +57,7 @@ const Me = () => {
                 templateColumns={{ base: "1fr", md: 'repeat(4, 1fr)' }}
                 >
                 <GridItem>
-                    <LeftCard img={"https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"} />
+                    <LeftCard img={blank} />
                 </GridItem>
                 <GridItem colSpan={{ base: 1, md: 3 }}>
                     <Outlet/>

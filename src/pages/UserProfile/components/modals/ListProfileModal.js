@@ -20,12 +20,12 @@ import {
     NumberInputField,
     NumberInputStepper
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useUserAuth } from "../../../../context/UserAuthContext";
 import { updateUser } from "../../../../firestore/utils";
 
 
-const ListProfileModal = ({isOpen, onClose, getUserData, loading, setLoading}) => {
+const ListProfileModal = ({isOpen, onClose, getUserData, userData, loading, setLoading}) => {
     
     const { user } = useUserAuth();
 
@@ -33,6 +33,19 @@ const ListProfileModal = ({isOpen, onClose, getUserData, loading, setLoading}) =
     const [budget, setBudget] = useState(0);
     const [availability, setAvailability] = useState("");
     const [duration, setDuration] = useState("");
+
+    const resetStates = useCallback( () => {
+        if (userData?.ProfileListing) {
+            setLocation(userData.ProfileListing.location);
+            setBudget(userData.ProfileListing.budget);
+            setAvailability(userData.ProfileListing.availability);
+            setDuration(userData.ProfileListing.duration);
+        }
+    }, [userData]);
+
+    useEffect( () => {
+        resetStates();
+    }, [resetStates]);
 
     const handleShareProfile = async () => {
         setLoading(true);
@@ -59,7 +72,7 @@ const ListProfileModal = ({isOpen, onClose, getUserData, loading, setLoading}) =
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Edit listing</ModalHeader>
+                <ModalHeader>Update listing</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <FormControl>
