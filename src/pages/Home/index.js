@@ -27,7 +27,7 @@ const Home = () => {
 
   return (
 
-    <Box maxW="8xl" mx="auto">
+    <Box maxW="8xl" mx="auto" mb={10}>
       
       <Box pos="relative" overflow="hidden"
           minH={{base: "auto", xl: "calc(100vh - var(--chakra-space-16))"}}>
