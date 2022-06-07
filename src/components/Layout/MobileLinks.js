@@ -61,7 +61,7 @@ const MobileLinks = () => {
                 display={ mobileNav.isOpen ? "flex" : "none"}
                 flexDirection="column"
                 p={2} mt={12} spacing={3}
-                bg={useColorModeValue("white", "gray.800")}
+                bg={useColorModeValue('gray.50', 'gray.900')}
                 rounded="md"
                 shadow="sm"
             >

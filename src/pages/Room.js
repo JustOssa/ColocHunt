@@ -44,7 +44,7 @@ const Room = () => {
             <Loader size="lg"/>
         :
         roomData ?
-            <Container maxW="container.xl" mt={8}>
+            <Container maxW="container.xl" mt={8} mb={10}>
                 <Header/>
                 <Grid mt={8} gap={{ base: 0, md: 4 }} templateColumns={{ base: "1fr", md: 'repeat(4, 1fr)' }}>
                     <GridItem>

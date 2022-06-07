@@ -1,26 +1,34 @@
 import {
+  Checkbox,
+  FormControl,
+  FormLabel,
+  Heading,
+  Link,
+  Stack,
+  Text
+} from '@chakra-ui/react';
+import {
     Button,
     Container,
     chakra,
-    Box,
     GridItem,
     useColorModeValue,
-    Center,
     Flex,
     SimpleGrid,
-    VisuallyHidden,
     Input,
     Alert,
     AlertIcon,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-import { GrGoogle } from 'react-icons/gr';
+import { FcGoogle } from 'react-icons/fc';
 import { useNavigate, useLocation, Link as RouterLink } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import AuthExceptionHandler from "../utils/AuthExceptionHandler";
 
 const Signin = () => {
+
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -33,6 +41,7 @@ const Signin = () => {
   const { logIn, googleSignIn } = useUserAuth();
 
   const handleLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
     setError("");
     try {
@@ -40,116 +49,117 @@ const Signin = () => {
       navigate(from, { replace: true });
     } catch (err) {
       setError(AuthExceptionHandler.handleLoginException(err));
+      setLoading(false);
     }
   };
 
   const handleGoogleSignIn = async (e) => {
+    setLoading(true);
     setError("");
     try {
       await googleSignIn();
       navigate(from, { replace: true });
     } catch (err) {
       setError(AuthExceptionHandler.handleLoginException(err));
+      setLoading(false);
     }
   };
 
   return (
-      <Container maxW="container.xl" mt={8} 
-        display= "flex" minH="calc(100vh - var(--chakra-space-24) - 136px)">
+      <Container maxW="container.xl" flex="auto" display= "flex">
         
         <SimpleGrid
           alignItems="center"
           columns={{ base: 1, lg: 11 }}
           gap={{ base: 0, lg: 24 }}
-          w="full"
+          w="full" alignContent="center"
         >
           <GridItem
             colSpan={{ base: "auto", lg: 7 }}
             textAlign={{ base: "center", lg: "left" }}
             px={6}
+            /*display={{base:"none", md:"block"}}*/
           >
-            <chakra.h1
-              mb={4}
-              fontSize={{ base: "3xl", md: "4xl" }}
-              fontWeight="bold"
-              lineHeight={{ base: "shorter", md: "none" }}
-              color={useColorModeValue("gray.900","gray.200")}
-              letterSpacing={{ base: "normal", md: "tight" }}
-            >
-              Welcome back!
-            </chakra.h1>
-            <chakra.p
-              mb={{ base: 10, md: 4 }}
-              fontSize={{ base: "lg", md: "xl" }}
-              color="gray.500"
-            >
-              Sign in to list, search & communicate with other members
-              without having to share your personal details.
-            </chakra.p>
-
+            <Stack maxW={{ base: "md", lg: "full" }} m={"auto"} mt={6}>
+              <chakra.h1
+                mb={4}
+                fontSize={{ base: "3xl", lg: "4xl" }}
+                fontWeight="bold"
+                lineHeight={{ base: "shorter", lg: "none" }}
+                color={useColorModeValue("gray.900","gray.200")}
+                letterSpacing={{ base: "normal", lg: "tight" }}
+              >
+                Welcome back!
+              </chakra.h1>
+              <chakra.p
+                mb={{ md: 4 }}
+                fontSize={{ base: "lg", md: "xl" }}
+                color="gray.500"
+              >
+                Sign in to list, search & communicate with other members
+                without having to share your personal details.
+              </chakra.p>
+            </Stack>
           </GridItem>
 
           <GridItem colSpan={{ base: "auto", lg: 4 }}>
-            <Box as="form" mb={6} rounded="lg" shadow="xl" onSubmit={handleLogin}>
-              <Center color="gray.600">
-                <p>Start talking now</p>
-              </Center>
-              <SimpleGrid
-                columns={1} px={6} py={4} spacing={4} borderBottom="solid 1px"
-                borderColor={useColorModeValue("gray.200","gray.700")}
-              >
-                {!error && from !== "/" &&
+            <Flex as="form" p={8} flex={1} align={"center"} justify={"center"} onSubmit={handleLogin}>
+              <Stack spacing={4} w={"full"} maxW={"md"}>
+                <Heading fontSize={"2xl"} display={{base:"none", lg:"block"}}>Sign in to your account</Heading>
+                {
+                  !error && from !== "/" &&
                   <Alert status='info'>
                     <AlertIcon />
                     Login to continue
                   </Alert>
                 }
-                {error && 
+                {
+                  error && 
                   <Alert status='error'>
                     <AlertIcon />
                     {error}
                   </Alert>
                 }
-                <Flex>
-                  <VisuallyHidden>Email Address</VisuallyHidden>
-                  <Input mt={0} required
-                    placeholder="Email Address"
-                    type="email"
+                <FormControl id="email">
+                  <FormLabel>Email address</FormLabel>
+                  <Input type="email" required 
                     onChange={(event) => {
-                      setLoginEmail(event.target.value);
-                    }}
+                        setLoginEmail(event.target.value);
+                      }}
                   />
-                </Flex>
-                <Flex>
-                  <VisuallyHidden>Password</VisuallyHidden>
-                  <Input mt={0} required
-                    placeholder="Password"
-                    type="password"
+                </FormControl>
+                <FormControl id="password">
+                  <FormLabel>Password</FormLabel>
+                  <Input type="password" required 
                     onChange={(event) => {
                       setLoginPassword(event.target.value);
-                    }}/>
-                </Flex>
-                <Button colorScheme="brand" py={2} type="submit">
-                  Sign in
-                </Button>
-                <Flex justify="end">
-                    <chakra.a as={RouterLink} to="#" fontSize="xs" textAlign="center" color="gray.600">
-                      Forgot password ?
-                    </chakra.a>
-                </Flex>
-              </SimpleGrid>
-              <Box px={6} py={4}>
-                <Button py={2} w="full" colorScheme="red" leftIcon={<GrGoogle/>} onClick={handleGoogleSignIn}>
-                  Continue with Google
-                </Button>
-              </Box>
-            </Box>
-            <chakra.p fontSize="xs" textAlign="center" color="gray.600">
-              You don't have an account?{" "}
-              <chakra.a as={RouterLink} to="/signup" color="brand.500" >
-                Sign up
-              </chakra.a>
-            </chakra.p>
+                    }}
+                  />
+                </FormControl>
+                <Stack spacing={6}>
+                  <Stack
+                    direction="row"
+                    align={"start"}
+                    justify={"space-between"}
+                  >
+                    <Checkbox>Remember me</Checkbox>
+                    <Link as={RouterLink} to="#" color={"blue.500"}>Forgot password?</Link>
+                  </Stack>
+                  <Button colorScheme={"blue"} variant={"solid"} type="submit" isLoading={loading}>
+                    Sign in
+                  </Button>
+                  <Button w="full" variant={"outline"} leftIcon={<FcGoogle />} onClick={handleGoogleSignIn}>
+                    Continue with Google
+                  </Button>
+                  <Text fontSize="xs" textAlign="center" color="gray.600">
+                    You don't have an account?{" "}
+                    <Link as={RouterLink} to="/signup" color="brand.500">
+                      Sign up
+                    </Link>
+                  </Text>
+                </Stack>
+              </Stack>
+            </Flex>            
           </GridItem>
           
         </SimpleGrid>

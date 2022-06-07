@@ -6,9 +6,9 @@ import Navbar from "./Navbar";
 const Layout = ( ) => {
 
     return (
-        <Flex minHeight="100vh" direction="column" pt={16} pb="136px">
+        <Flex minHeight="100vh" direction="column" pt={16} pb={{ base: '104px', md: '64px' }} >
             <Navbar/>
-                <Outlet />
+            <Outlet />
             <Footer/>
         </Flex>
     );

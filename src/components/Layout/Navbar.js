@@ -63,7 +63,7 @@ const Navbar = () => {
     }
 
     return (
-        <Box position="fixed" top={0} w="100%" zIndex={100} bgColor={useColorModeValue("white", "gray.800")}>
+        <Box position="fixed" top={0} w="100%" zIndex={100} bg={useColorModeValue('gray.50', 'gray.900')}>
             <Container
                 maxW="container.xl"
                 py={3}
