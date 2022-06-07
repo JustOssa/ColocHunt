@@ -51,7 +51,7 @@ const Me = () => {
     }
 
     return ( 
-        <Container maxW="container.xl" mt={8}>
+        <Container maxW="container.xl" mt={8} mb={10}>
             <Grid gap={{ base: 0, md: 4 }} mt={8} 
                 templateColumns={{ base: "1fr", md: 'repeat(4, 1fr)' }}
                 >
