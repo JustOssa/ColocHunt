@@ -52,7 +52,7 @@ const Profile = () => {
                     templateColumns={{ base: "1fr", md: 'repeat(4, 1fr)' }}
                     >
                     <GridItem>
-                        <InfoCard title={profileData?.name} img={profileImg} />
+                        <InfoCard title={profileData?.name} about={profileData?.about} location={profileData?.ProfileListing?.location} budget={profileData?.ProfileListing?.budget} studies={profileData?.studies} img={profileImg} />
                     </GridItem>
                     <GridItem colSpan={{ base: 1, md: 3 }}>
 
@@ -60,17 +60,17 @@ const Profile = () => {
                         py={4} px={8} shadow="lg" rounded="lg" roundedTop={{ base: "unset", md: "lg" }}
                         bg={bg1}
                     >
-                        <Flex justifyContent={{ base: "center", md: "end" }} mt={-20}>
-                        <Image
-                            w={32}
-                            h={32}
-                            fit="cover"
-                            rounded="full"
-                            borderStyle="solid"
-                            borderWidth={2}
-                            alt="Testimonial avatar"
-                            src={profileImg}
-                        />
+                        <Flex justifyContent={{ base: "center", md: "end" }} mt={-20} visibility={{base:"visible", md: "hidden"}}>
+                            <Image
+                                w={32}
+                                h={32}
+                                fit="cover"
+                                rounded="full"
+                                borderStyle="solid"
+                                borderWidth={2}
+                                alt="Testimonial avatar"
+                                src={profileImg}
+                            />
                         </Flex>
 
 
@@ -149,7 +149,7 @@ const Profile = () => {
                                 <Text fontWeight='bold'>
                                     {profileData?.name}
                                 </Text>
-                                <Text fontSize='sm'>ENSA Safi</Text>
+                                <Text fontSize='sm'>{profileData?.studies}</Text>
                             </Box>
                         </Flex>
 

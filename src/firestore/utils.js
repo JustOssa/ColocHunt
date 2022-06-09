@@ -8,7 +8,8 @@ import {
     deleteDoc,
     query,
     where,
-    orderBy
+    orderBy,
+    deleteField
   } from "firebase/firestore";
 import { db } from "../utils/firebase-config";
     
@@ -26,6 +27,14 @@ import { db } from "../utils/firebase-config";
     export function deleteUser(id) {
         const userDoc = doc(db, "users", id);
         return deleteDoc(userDoc);
+    }
+
+    // delete user profile
+    export function deleteUserProfile(id) {
+        const userDoc = doc(db, "users", id);
+        return updateDoc(userDoc, {
+            ProfileListing: deleteField()
+        });
     }
 
     // get user
@@ -68,6 +77,12 @@ import { db } from "../utils/firebase-config";
     export function getRoom(roomID) {
         const roomDoc = doc(db, "rooms", roomID);
         return getDoc(roomDoc);
+    }
+
+    // delete room
+    export function deleteRoom(roomID) {
+        const roomDoc = doc(db, "rooms", roomID);
+        return deleteDoc(roomDoc);
     }
 
     // ==> profiles <== // 

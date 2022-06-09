@@ -62,7 +62,7 @@ const ListRoomModal = ({isOpen, onClose, getUserData, loading, setLoading}) => {
             currentRoomates: currentRoomates,
             totalRoomates: totalRoomates,
             bedrooms: bedrooms,
-            bathrooms: bedrooms,
+            bathrooms: bathrooms,
             privateRoom: privateRoom,
             furnishedRoom: furnishedRoom,
             equipments: equipments,
@@ -86,7 +86,7 @@ const ListRoomModal = ({isOpen, onClose, getUserData, loading, setLoading}) => {
         <Modal onClose={onClose} isOpen={isOpen} isCentered scrollBehavior="inside">
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Edit listing</ModalHeader>
+                <ModalHeader>Create listing</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <FormControl>

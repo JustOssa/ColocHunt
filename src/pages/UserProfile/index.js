@@ -17,7 +17,7 @@ import {
     useDisclosure } from '@chakra-ui/react';
 import { FaSmile } from 'react-icons/fa';
 import { BsFillHeartFill } from 'react-icons/bs';
-import { FiEdit } from 'react-icons/fi';
+import { FiEdit, FiEye, FiTrash } from 'react-icons/fi';
 import Card from '../../components/Card';
 import BasicInfoModal from './components/modals/BasicInfoModal';
 import MoreInfoModal from './components/modals/MoreInfoModal';
@@ -26,10 +26,11 @@ import ListRoomModal from './components/modals/ListRoomModal';
 import CompleteProfile from './components/CompleteProfile'
 
 import { useEffect, useState, useCallback } from "react";
-import { getUser, getUserRoom } from '../../firestore/utils';
+import { deleteRoom, deleteUserProfile, getUser, getUserRoom } from '../../firestore/utils';
 
 import { useUserAuth } from '../../context/UserAuthContext';
 import FormatDate from '../../utils/formatDate';
+import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
 
@@ -45,16 +46,34 @@ const UserProfile = () => {
     const { isOpen:isOpen3, onOpen:onOpen3, onClose:onClose3 } = useDisclosure();
     const { isOpen:isOpen4, onOpen:onOpen4, onClose:onClose4 } = useDisclosure();
 
-    const Editable = ({children, onClick, ...props}) => {
+    const Editable = ({children, onClick, onClickDelete, visit, ...props}) => {
         return (
             <Flex {...props} align="center" gap={2}>
                 {children}
+                <Stack direction="row">
+                {visit &&
+                <IconButton
+                    as={Link}
+                    to={"/profiles/" + user.uid}
+                    aria-label='Visit'
+                    icon={<FiEye />}
+                    size="xs"
+                />}
                 <IconButton
                     onClick={onClick}
                     aria-label='Edit'
                     icon={<FiEdit />}
                     size="xs"
                 />
+                {onClickDelete &&
+                <IconButton
+                    onClick={onClickDelete}
+                    aria-label='Delete'
+                    icon={<FiTrash />}
+                    colorScheme="red"
+                    size="xs"
+                />}
+                </Stack>
             </Flex>
         );
     }
@@ -62,7 +81,7 @@ const UserProfile = () => {
     const ProfileListing = () => {
         return (
             <>
-            <Editable onClick={onOpen3} justify="space-between" my={3}>
+            <Editable visit onClick={onOpen3} onClickDelete={handleDeleteUserProfile} justify="space-between" my={3}>
                 <Heading as='h4' fontSize='md' fontWeight="medium" >My listing</Heading>
             </Editable>
             <Stack spacing={2}>
@@ -89,12 +108,19 @@ const UserProfile = () => {
     const RoomListing = () => {
         return (
             <>
-                <Editable onClick={onOpen4} justify="space-between" mb={3}>
+                <Flex justify="space-between" mb={3} align="center" gap={2}>
                     <Heading as='h4' fontSize='md' fontWeight="medium">My listing</Heading>
-                </Editable>
+                    <IconButton
+                        onClick={() => handleDeleteRoom(userRoom.id)}
+                        aria-label='Delete'
+                        icon={<FiTrash />}
+                        colorScheme="red"
+                        size="xs"
+                    />
+                </Flex>
                 <SimpleGrid columns={{base: 1, sm: 2, xl: 3}} spacing={2}>
                     <Card
-                        roomID={"roomIDHere"}
+                        roomID={userRoom.id}
                         title={userRoom.location}
                         image={userRoom.image}
                         rent={userRoom.rent}
@@ -123,7 +149,9 @@ const UserProfile = () => {
                 // get user listed room
                 const querySnapshot = await getUserRoom(user.uid);
                 if (!querySnapshot.empty) {
-                    setUserRoom(querySnapshot.docs[0].data());
+                    setUserRoom({...querySnapshot.docs[0].data(), id: querySnapshot.docs[0].id});
+                } else {
+                    setUserRoom();
                 }
             }
             setLoading(false);
@@ -135,6 +163,29 @@ const UserProfile = () => {
     useEffect( () => {
         getUserData();
     }, [getUserData]);
+
+
+    const handleDeleteRoom  = async (roomID) => {
+        setLoading(true);
+        try {
+            await deleteRoom(roomID);
+            console.log("Room deleted.")
+            getUserData();
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
+
+    const handleDeleteUserProfile  = async () => {
+        setLoading(true);
+        try {
+            await deleteUserProfile(user.uid);
+            console.log("Profile deleted.")
+            getUserData();
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
     const blue = useColorModeValue("brand.600", "brand.400");
 
@@ -261,7 +312,7 @@ const UserProfile = () => {
         <MoreInfoModal onClose={onClose2} isOpen={isOpen2} getUserData={getUserData} userData={userData} loading={loading} setLoading={setLoading}/>
 
         {/* Modal 3 : Listing Profile*/}
-        <ListProfileModal onClose={onClose3} isOpen={isOpen3} getUserData={getUserData} loading={loading} setLoading={setLoading}/>
+        <ListProfileModal onClose={onClose3} isOpen={isOpen3} getUserData={getUserData} userData={userData} loading={loading} setLoading={setLoading}/>
 
         {/* Modal 4 : Listing Room*/}
         <ListRoomModal onClose={onClose4} isOpen={isOpen4} getUserData={getUserData} loading={loading} setLoading={setLoading}/>

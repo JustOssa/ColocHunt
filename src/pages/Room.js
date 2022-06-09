@@ -8,12 +8,13 @@ import InfoCard from '../components/InfoCard';
 import { MdEmail } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getRoom } from '../firestore/utils';
+import { getRoom, getUser } from '../firestore/utils';
 import NotFound from '../components/Layout/Notfound';
 import Loader from '../components/Layout/Loader';
 const Room = () => {
 
     const [roomData, setRoomData] = useState();
+    const [profile, setProfile] = useState();
     const [loading, setLoading] = useState(true);
 
     const profileImg = "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80";
@@ -25,7 +26,11 @@ const Room = () => {
             try {
                 const docSnap = await getRoom(params.roomID);
                 if (docSnap.exists()) {
-                    setRoomData(docSnap.data());
+                    const docSnap2 = await getUser(docSnap.data().userID);
+                    if (docSnap2.exists()) {
+                        setRoomData(docSnap.data());
+                        setProfile(docSnap2.data());
+                    }   
                 }
                 setLoading(false);
             } catch (err) {
@@ -48,7 +53,7 @@ const Room = () => {
                 <Header/>
                 <Grid mt={8} gap={{ base: 0, md: 4 }} templateColumns={{ base: "1fr", md: 'repeat(4, 1fr)' }}>
                     <GridItem>
-                        <InfoCard title="Patterson" img={roomData?.image} />
+                        <InfoCard title={"Author: " + profile?.name} about={profile?.about} location={roomData?.location} studies={profile?.studies} budget={roomData?.rent} img={roomData?.image} />
                     </GridItem>
                     
                     <GridItem colSpan={{ base: 1, md: 3 }}>
@@ -89,7 +94,11 @@ const Room = () => {
                                     {roomData?.location}
                                 </chakra.h2>
                                 <chakra.p mb={2} color={subColor}>
-                                    Private room with shared bathroom
+                                    {roomData?.privateRoom ?
+                                        roomData?.furnishedRoom ? "Private and furnished room" : "Private room not furnished"
+                                    :   
+                                        roomData?.furnishedRoom ? "Shared and furnished room" : "Shared room not furnished"
+                                    }                                    
                                 </chakra.p>
                             </Box>
 
@@ -157,9 +166,9 @@ const Room = () => {
                                 <Avatar src={profileImg} />
                                 <Box ml='3'>
                                     <Text fontWeight='bold'>
-                                        Patterson
+                                        {profile?.name}
                                     </Text>
-                                    <Text fontSize='sm'>ENSA Safi</Text>
+                                    <Text fontSize='sm'>{profile?.studies}</Text>
                                 </Box>
                             </Flex>
 
