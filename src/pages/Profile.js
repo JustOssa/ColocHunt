@@ -17,8 +17,6 @@ const Profile = () => {
     const [profileData, setProfileData] = useState();
     const [loading, setLoading] = useState(true);
 
-    const profileImg = "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80";
-
     const subColor = useColorModeValue("gray.900", "gray.200");
     const bg1 = useColorModeValue("white", "#1c2330");
     const color1 = useColorModeValue("gray.800", "gray.400");
@@ -31,14 +29,30 @@ const Profile = () => {
                 const docSnap = await getUser(params.profileID);
                 // If user has profile listing
                 if (docSnap.exists() && docSnap.data().ProfileListing) {
-                    setProfileData(docSnap.data());
+
+                    if (!docSnap.data().profileImg ) {
+                        let profileImg
+                        
+                        if (docSnap.data().gender === "Male") {
+                            profileImg = "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+                        } else {
+                            profileImg ="https://i.pinimg.com/736x/09/04/8e/09048e346d8177216ee0e72e69b314c4.jpg"
+                        }
+
+                        setProfileData({...docSnap.data(), profileImg: profileImg});
+                    } else {
+                        setProfileData(...docSnap.data());
+                    }
+
                 }
+
                 setLoading(false);
             } catch (err) {
                 console.log(err.message)
             }
         }
         getProfileData();
+
     }, [params]);
 
     return ( 
@@ -52,7 +66,7 @@ const Profile = () => {
                     templateColumns={{ base: "1fr", md: 'repeat(4, 1fr)' }}
                     >
                     <GridItem>
-                        <InfoCard title={profileData?.name} about={profileData?.about} location={profileData?.ProfileListing?.location} budget={profileData?.ProfileListing?.budget} studies={profileData?.studies} img={profileImg} />
+                        <InfoCard title={profileData?.name} about={profileData?.about} location={profileData?.ProfileListing?.location} budget={profileData?.ProfileListing?.budget} studies={profileData?.studies} img={profileData?.profileImg} />
                     </GridItem>
                     <GridItem colSpan={{ base: 1, md: 3 }}>
 
@@ -69,7 +83,7 @@ const Profile = () => {
                                 borderStyle="solid"
                                 borderWidth={2}
                                 alt="Testimonial avatar"
-                                src={profileImg}
+                                src={profileData?.profileImg}
                             />
                         </Flex>
 
@@ -144,7 +158,7 @@ const Profile = () => {
                         display={{base:"flex", md:"none"}}
                     >
                         <Flex>
-                            <Avatar src={profileImg} />
+                            <Avatar src={profileData?.profileImg} />
                             <Box ml='3'>
                                 <Text fontWeight='bold'>
                                     {profileData?.name}
