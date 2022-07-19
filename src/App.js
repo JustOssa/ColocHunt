@@ -7,11 +7,15 @@ import Profile from "./pages/Profile";
 import Room from "./pages/Room";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import UserProfile from "./pages/UserProfile"
+import Inbox from "./pages/Inbox";
+import Settings from "./pages/Settings";
 
-import { UserAuthContextProvider } from "./context/UserAuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./components/Layout/Notfound";
 import Layout from "./components/Layout/Layout";
+import ProfileLayout from "./components/Layout/ProfileLayout";
+import { UserAuthContextProvider } from "./context/UserAuthContext";
 
 function App() {
 
@@ -35,6 +39,12 @@ function App() {
 
                 <Route path="signup" element={<Signup />} />
                 <Route path="signin" element={<Signin />} />
+
+                <Route element={<ProfileLayout/>}>
+                  <Route path="me" element={<UserProfile/>} />
+                  <Route path="inbox" element={<Inbox/>} />
+                  <Route path="settings" element={<Settings/>} />
+                </Route>
 
               </Route>
 

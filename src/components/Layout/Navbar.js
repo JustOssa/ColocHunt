@@ -93,9 +93,9 @@ const Navbar = () => {
                                 icon={<FaUser />}
                             />
                             <MenuList minW="full">
-                                <MenuItem icon={<FaUserCircle size={16} />}>My Account</MenuItem>
-                                <MenuItem icon={<MdEmail size={16} />}>Inbox </MenuItem>
-                                <MenuItem icon={<IoMdSettings size={16} />}>Settings </MenuItem>
+                                <MenuItem as={Link} to="/me" icon={<FaUserCircle size={16} />}>My Account</MenuItem>
+                                <MenuItem as={Link} to="/inbox" icon={<MdEmail size={16} />}>Inbox </MenuItem>
+                                <MenuItem as={Link} to="/settings" icon={<IoMdSettings size={16} />}>Settings </MenuItem>
                                 <MenuDivider />
                                 <MenuItem icon={<MdLogout size={16} />} onClick={handleLogout} >Sign out </MenuItem>
                             </MenuList>

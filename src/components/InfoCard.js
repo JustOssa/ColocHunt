@@ -3,7 +3,7 @@ import { MdEmail, MdLocationOn } from "react-icons/md";
 import { BsFillBriefcaseFill } from "react-icons/bs";
 import RandomImages from '../utils/randomImage';
 
-const InfoCard = ({title, img}) => {
+const InfoCard = ({title, about, location, budget, studies, img}) => {
     return (
           <Box
             w="full"
@@ -28,10 +28,10 @@ const InfoCard = ({title, img}) => {
                 <Flex align="center">
                     <Icon as={MdLocationOn} h={5} w={5} color="white" />
                     <chakra.h1 mx={3} color="white" fontWeight="bold" fontSize={["lg", "inherit"]}>
-                      Miftah ElKheir, Safi
+                      { location }
                     </chakra.h1>
                 </Flex>
-                <Badge backgroundColor='gray.600' color="white">200$</Badge>
+                <Badge backgroundColor='gray.600' color="white">{budget}$</Badge>
             </Flex>
     
             <Box display={{base:"none", md: "block"}} py={4} px={6}>
@@ -44,9 +44,8 @@ const InfoCard = ({title, img}) => {
               </chakra.h1>
 
     
-              <chakra.p py={2} color={useColorModeValue("gray.700", "gray.400")}>
-                Looking to rent a room, i keep to myself, im as quiet as it could be,
-                I don't smoke nor drink.
+              <chakra.p pt={2} noOfLines={3} overflow="hidden" color={useColorModeValue("gray.700", "gray.400")}>
+                {about}
               </chakra.p>
     
               <Flex
@@ -55,7 +54,7 @@ const InfoCard = ({title, img}) => {
                 color={useColorModeValue("gray.700", "gray.200")}
               >
                 <Icon as={BsFillBriefcaseFill} h={6} w={6} mr={2} />
-                <chakra.h1 px={2} fontSize="sm">ENSA Safi</chakra.h1>
+                <chakra.h1 px={2} fontSize="sm">{studies}</chakra.h1>
               </Flex>
               <Flex
                 alignItems="center"
